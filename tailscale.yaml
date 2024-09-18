@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+  Tailscale:
+    container_name: Tailscale
+    image: deasmi/unraid-tailscale:latest
+    privileged: true
+    ports: []
+    volumes:
+    - /path:/state:rw
+    - /path:/downloads:rw
+    environment:
+      UP_FLAGS: --advertise-routes=192.168.1.0/24 --advertise-exit-node
+      ENABLE_DOWNLOADS: 'TRUE'
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: Tailscale
+      HOST_CONTAINERNAME: Tailscale
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/repository/docker/deasmi/unraid-tailscale
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: https://forums.unraid.net/topic/90719-will-move-to-ca-tailscale-support-thread/
+      net.unraid.docker.project: https://github.com/deasmi/unraid-tailscale
+      net.unraid.docker.overview: "Private networks made easy\r\n\r\nConnect all your\
+        \ devices using WireGuard,\xAE without the hassle.\r\nTailscale makes it as\
+        \ easy as installing an app and signing in.\r\n\r\nThis container sets up\
+        \ tailscale for unraid.\r\n\r\nIt will register as hostname unraid, if you\
+        \ want to change that see 'Extra Parameters' below and change to the hostname\
+        \ you would like.\r\n\r\n** IMPORTANT When you first start this container\
+        \ you must check the log file for the logon URL and then enter it into a browser\
+        \ and logon to tail scale. I would then also advise setting the keys to not\
+        \ expire for your unraid host **\r\n\r\n** Note that this will expose your\
+        \ whole server into your tailscale VPN network ** \r\nDo not do this if you\
+        \ do not understand what that means."
+      net.unraid.docker.category: 'Network:VPN spotlight:'
+      net.unraid.docker.icon: https://raw.githubusercontent.com/deasmi/unraid-tailscale/master/logo.png
+      net.unraid.docker.webui: ''
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/deasmi/unraid-ca/master/unraid-tailscale.xml
+      net.unraid.docker.installed: '1721448091'
+      net.unraid.docker.donate.text: If you like my work please consider donating
+        to cancer research at https://www.justgiving.com/fundraising/unraid-tailscale.
+      net.unraid.docker.donate.link: https://www.justgiving.com/fundraising/unraid-tailscale
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - host
+    cpuset: ''
+    command: ''
+networks:
+  host:
+    external: true
+    name: host
