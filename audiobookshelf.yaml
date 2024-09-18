@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  audiobookshelf:
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf
+    privileged: false
+    ports:
+    - target: 80
+      published: 13378
+      protocol: tcp
+    volumes:
+    - /path:/audiobooks:rw
+    - /path:/config:rw
+    - /path:/metadata:rw
+    environment:
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: audiobookshelf
+      HOST_CONTAINERNAME: audiobookshelf
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/r/advplyr/audiobookshelf/
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: https://forums.unraid.net/topic/112698-support-audiobookshelf/
+      net.unraid.docker.project: https://github.com/advplyr/audiobookshelf
+      net.unraid.docker.overview: Self-hosted audiobook and podcast server and web
+        app. Supports multi-user w/ permissions and keeps progress in sync across
+        devices. Free &amp; open source mobile apps. Consider contributing by posting
+        feedback, suggestions, feature requests on github or the forums.
+      net.unraid.docker.category: MediaApp:Books MediaServer:Books MediaApp:Other
+        MediaServer:Other
+      net.unraid.docker.icon: https://github.com/advplyr/audiobookshelf/raw/master/client/static/Logo.png
+      net.unraid.docker.webui: http://[IP]:[PORT:80]
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/advplyr/docker-templates/master/audiobookshelf.xml
+      net.unraid.docker.installed: '1707037804'
+      net.unraid.docker.donate.text: ''
+      net.unraid.docker.donate.link: ''
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - bridge
+    cpuset: ''
+    command: ''
+networks:
+  bridge:
+    external: true
+    name: bridge
