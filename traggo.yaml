@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  traggo:
+    container_name: traggo
+    image: traggo/server:latest
+    privileged: false
+    ports:
+    - target: 3030
+      published: 3020
+      protocol: tcp
+    volumes:
+    - /path:/opt/traggo/data:rw
+    environment:
+      TRAGGO_DEFAULT_USER_NAME: user
+      TRAGGO_DEFAULT_USER_PASS: 'password'
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: traggo
+      HOST_CONTAINERNAME: traggo
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/r/traggo/server
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: https://github.com/traggo/server/issues
+      net.unraid.docker.project: https://traggo.net/
+      net.unraid.docker.overview: Traggo is a tag-based time tracking tool. In Traggo
+        there are no tasks, only tagged time spans
+      net.unraid.docker.category: 'Other:'
+      net.unraid.docker.icon: https://i.imgur.com/vPp0P8W.png
+      net.unraid.docker.webui: http://[IP]:[PORT:3030]
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/ibracorp/unraid-templates/master/traggo/traggo.xml
+      net.unraid.docker.installed: '1724039509'
+      net.unraid.docker.donate.text: ''
+      net.unraid.docker.donate.link: ''
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - network
+    cpuset: ''
+    command: ''
+networks:
+  proxynet:
+    external: true
+    name: network
