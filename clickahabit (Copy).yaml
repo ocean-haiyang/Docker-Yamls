@@ -1,0 +1,15 @@
+version: "3"
+services:
+  clickahabit:
+    image: aceberg/clickahabit
+    restart: unless-stopped
+    ports:
+    - 8852:8852
+    volumes:
+    - ~/path:/data
+    environment:
+      TZ: America/New_York    # required, default: ""
+      HOST: "0.0.0.0"         # optional, default: 0.0.0.0
+      PORT: "8852"            # optional, default: 8852
+      THEME: "cosmo"         # optional, default: united
+      COLOR: "dark"          # optional, default: light
