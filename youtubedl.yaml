@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  youtubedl:
+    container_name: youtubedl
+    image: tzahi12345/youtubedl-material:latest
+    privileged: false
+    ports:
+    - target: 17442
+      published: 17442
+      protocol: tcp
+    volumes:
+    - /path:/app/audio/:rw
+    - /path:/app/video/:rw
+    - /path:/app/subscriptions/:rw
+    - /path:/app/users/:rw
+    - /path:/app/appdata:rw
+    environment:
+      ytdl_title_top: YoutubeDL Material
+      ytdl_allow_advanced_download: 'true'
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: youtubedl
+      HOST_CONTAINERNAME: youtubedl
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/r/tzahi12345/youtubedl-material/
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: https://forums.unraid.net/topic/87798-support-selfhostersnets-template-repository/
+      net.unraid.docker.project: https://github.com/Tzahi12345/YoutubeDL-Material
+      net.unraid.docker.overview: "YoutubeDL-Material is a self-hosted youtube-dl\
+        \ Server with a modern Material-based GUI and the capability to apply advanced\
+        \ configurations, like setting your own download paths based on rules.\r\n\
+        \r\nIt is designed to be more customizable than the alternatives out there.\r\
+        \n\r\nIt will also keep a record of already downloaded items. Enjoy! :)"
+      net.unraid.docker.category: 'Downloaders: MediaApp:Video MediaApp:Music'
+      net.unraid.docker.icon: https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/img/youtubedl-material.png
+      net.unraid.docker.webui: http://[IP]:[PORT:17442]/
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/youtubedl-material.xml
+      net.unraid.docker.installed: '1724038321'
+      net.unraid.docker.donate.text: ''
+      net.unraid.docker.donate.link: ''
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - proxynet
+    cpuset: ''
+    command: ''
+networks:
+  proxynet:
+    external: true
+    name: network
