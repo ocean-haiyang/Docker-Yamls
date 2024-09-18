@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+  Agent-DVR:
+    container_name: Agent-DVR
+    image: doitandbedone/ispyagentdvr:5.5.0.0
+    privileged: true
+    ports:
+    - target: 8090
+      published: 8090
+      protocol: tcp
+    - target: 3478
+      published: 3478
+      protocol: udp
+    - target: 50000
+      published: 50000
+      protocol: tcp
+    volumes:
+    - /path:/agent/Media/XML/:rw
+    - /path:/agent/Media/WebServerRoot/Media/:rw
+    - /path:/agent/Commands:rw
+    environment:
+      ? ''
+      : --restart-unless-stopped --restart=always --log-opt max-size=50m --log-opt
+        max-file=1
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: Agent-DVR
+      HOST_CONTAINERNAME: Agent-DVR
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/r/doitandbedone/ispyagentdvr
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: ''
+      net.unraid.docker.project: https://www.ispyconnect.com/
+      net.unraid.docker.overview: "Agent DVR (next gen version of iSpy) is a super\
+        \ advanced video surveillance platform\r\nSupports multiple camera types,\
+        \ sensor types, recordings and alerts\r\nAgent DVR is the only DVR solution\
+        \ that doesn\u2019t need port forwarding.\r\nThat means no fiddly router setup\
+        \ or network security compromise for remote access.\r\nUI works on all modern\
+        \ devices from phones to tablets and desktops."
+      net.unraid.docker.category: 'Security: Network:Other'
+      net.unraid.docker.icon: https://ispycontent.azureedge.net/img/ispy2.png
+      net.unraid.docker.webui: http://[IP]:[PORT:8090]
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/Frooodle/unraid-templates/master/Agent-DVR.xml
+      net.unraid.docker.installed: '1724038220'
+      net.unraid.docker.donate.text: You shouldn't donate, I have not made these docker
+        images only did some config..   But if you really want to, thanks :)
+      net.unraid.docker.donate.link: https://www.paypal.com/paypalme/FroodlePlex
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - proxynet
+    cpuset: ''
+    command: ''
+networks:
+  proxynet:
+    external: true
+    name: NETWORK
