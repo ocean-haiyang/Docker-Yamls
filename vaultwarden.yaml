@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server
+    privileged: false
+    ports:
+    - target: 80
+      published: 4743
+      protocol: tcp
+    volumes:
+    - /path:/data:rw
+    environment:
+      SIGNUPS_ALLOWED: 'true'
+      INVITATIONS_ALLOWED: 'true'
+      WEBSOCKET_ENABLED: 'false'
+      ADMIN_TOKEN: token
+      TZ: UTC
+      HOST_OS: OS
+      HOST_HOSTNAME: vaultwarden
+      HOST_CONTAINERNAME: vaultwarden
+    labels:
+      net.unraid.docker.registry: https://hub.docker.com/r/vaultwarden/server/
+      net.unraid.docker.shell: sh
+      net.unraid.docker.support: https://forums.unraid.net/topic/88086-support-vaultwarden-formerly-bitwarden_rs/
+      net.unraid.docker.project: https://github.com/dani-garcia/vaultwarden/
+      net.unraid.docker.overview: "Vaultwarden (formerly bitwarden_rs) is a Bitwarden\
+        \ server API implementation written in Rust compatible with upstream Bitwarden\
+        \ clients, perfect for self-hosted deployment where running the official resource-heavy\
+        \ service might not be ideal.\r\n    \r\n    Basically full implementation\
+        \ of Bitwarden API is provided including: \r\n    \r\n    -Basic single user\
+        \ functionality\r\n    \r\n    -Organizations support\r\n    \r\n    -Attachments\r\
+        \n    \r\n    -Vault API support\r\n    \r\n    -Serving the static files\
+        \ for Vault interface\r\n    #xD;\r\n    -Website icons API\r\n    \r\n  \
+        \  -Authenticator and U2F support\r\n    \r\n    -YubiKey OTP\r\n    \r\n\
+        \    For more configuration see the wiki https://github.com/dani-garcia/vaultwarden/wiki"
+      net.unraid.docker.category: Tools:Utilities
+      net.unraid.docker.icon: https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/img/vaultwarden.png
+      net.unraid.docker.webui: http://[IP]:[PORT:80]/admin
+      net.unraid.docker.managed: compose
+      net.unraid.docker.template: https://raw.githubusercontent.com/selfhosters/unRAID-CA-templates/master/templates/vaultwarden.xml
+      net.unraid.docker.installed: '1724038332'
+      net.unraid.docker.donate.text: ''
+      net.unraid.docker.donate.link: ''
+      net.unraid.docker.requires: ''
+    devices: []
+    networks:
+    - proxynet
+    cpuset: ''
+    command: ''
+networks:
+  proxynet:
+    external: true
+    name: network
